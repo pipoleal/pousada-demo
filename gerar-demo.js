@@ -85,4 +85,5 @@ for (const k of ["nome", "nota", "avaliacoes", "precoJardim", "precoMar", "preco
 
 fs.writeFileSync(path.join(destino, "index.html"), html);
 console.log(`Demo gerada: demos/${slug}/index.html`);
-console.log(`Publicar:    vercel deploy demos/${slug} --prod --yes --project demo-${slug}`);
+console.log(`Publicar:    vercel project add demo-${slug}`);
+console.log(`             vercel deploy demos/${slug} --prod --yes --project demo-${slug}`);

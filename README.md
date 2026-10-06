@@ -21,7 +21,9 @@ Use `dados/exemplo.json` como base. Fotos no JSON (ex: `"piscina": "img/recanto-
 ## Publicar uma demo na Vercel
 
 ```bash
+vercel project add demo-<slug>
 vercel deploy demos/<slug> --prod --yes --project demo-<slug>
 ```
 
-O link fica `https://demo-<slug>.vercel.app`.
+O link fica `https://demo-<slug>.vercel.app`. Se esse endereço já for de outra pessoa, a Vercel adiciona um sufixo
+(ex: `demo-<slug>-rouge.vercel.app`) — veja o link certo com `vercel project inspect demo-<slug>` ou no painel.
