@@ -1,0 +1,5 @@
+# Arquivos que não precisam ir pro site publicado
+README.md
+gerar-demo.js
+dados/
+demos/

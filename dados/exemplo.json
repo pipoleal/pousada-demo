@@ -1,0 +1,28 @@
+{
+  "nome": "Pousada Recanto do Sol",
+  "cidade": "Ubatuba - SP",
+  "endereco": "Av. Beira Mar, 250",
+  "whatsapp": "5512988887777",
+  "instagram": "@pousadarecantodosol",
+  "nota": "4,9",
+  "avaliacoes": "180+",
+  "precos": {
+    "jardim": "R$ 280",
+    "mar": "R$ 390",
+    "chale": "R$ 520"
+  },
+  "cores": {
+    "mata": "#3B2A1F",
+    "mar": "#C26A2E",
+    "sol": "#F2C94C",
+    "espuma": "#FBF4EA"
+  },
+  "fotos": {
+    "piscina": "",
+    "cafe": "",
+    "jardim": "",
+    "suiteJardim": "",
+    "suiteMar": "",
+    "chale": ""
+  }
+}

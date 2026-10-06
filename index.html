@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pousada Brisa da Mata — Litoral Norte</title>
+<meta name="description" content="Pousada a poucos passos da praia, entre o mar e a Mata Atlântica. Reserve direto pelo WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌴</text></svg>">
+<style>
+/* =========================================================
+   CORES — troque aqui pra adaptar à identidade de cada pousada
+   ========================================================= */
+:root{
+  --mata:#1F3B2D;      /* verde escuro (títulos, rodapé) */
+  --mar:#2E7A7B;       /* verde-água (destaques) */
+  --espuma:#E8F1EE;    /* fundo claro */
+  --sol:#F2B33D;       /* amarelo (botões) */
+  --tinta:#17252A;     /* texto */
+  --branco:#FFFFFF;
+  --suave:#5B6F6A;     /* texto secundário */
+  --raio:18px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;font-family:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--tinta);background:var(--espuma);line-height:1.6;font-size:1.0625rem}
+h1,h2,h3{font-family:"Zilla Slab",Georgia,serif;color:var(--mata);line-height:1.15;margin:0 0 .5em}
+h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:700}
+h2{font-size:clamp(1.9rem,4vw,2.6rem);font-weight:600}
+h3{font-size:1.45rem;font-weight:600}
+p{margin:0 0 1em;max-width:62ch}
+a{color:var(--mar)}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--sol);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,100% - 2.5rem);margin-inline:auto}
+section{padding:5.5rem 0}
+
+/* ---------- Botões ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font:700 1rem "Nunito Sans",sans-serif;padding:.95rem 1.6rem;border-radius:999px;border:0;cursor:pointer;text-decoration:none;transition:transform .15s,background .15s}
+.btn:active{transform:scale(.97)}
+.btn-sol{background:var(--sol);color:var(--tinta)}
+.btn-sol:hover{background:#e5a52b}
+.btn-linha{background:transparent;color:var(--branco);box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
+
+/* ---------- Topo ---------- */
+.topo{position:fixed;inset:0 0 auto;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .25s,box-shadow .25s}
+.topo .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.marca{font-family:"Zilla Slab",serif;font-weight:700;font-size:1.35rem;color:var(--branco);text-decoration:none}
+.topo nav{display:flex;gap:1.6rem;align-items:center}
+.topo nav a{color:var(--branco);text-decoration:none;font-weight:600}
+.topo.solido{background:var(--mata);box-shadow:0 2px 14px rgba(0,0,0,.18)}
+.menu-btn{display:none;background:none;border:0;color:var(--branco);font-size:1.7rem;cursor:pointer}
+@media (max-width:820px){
+  .topo nav{position:fixed;inset:68px 0 auto;background:var(--mata);flex-direction:column;padding:1.5rem;gap:1.2rem;transform:translateY(-130%);transition:transform .25s}
+  .topo nav.aberto{transform:none}
+  .menu-btn{display:block}
+}
+
+/* ---------- Hero (ilustração) ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:0 0 9rem;overflow:hidden;background:#F7C873}
+.hero svg.paisagem{position:absolute;inset:0;width:100%;height:100%}
+.hero .wrap{position:relative;z-index:2}
+.hero h1{color:var(--branco);max-width:14ch;text-shadow:0 2px 24px rgba(15,40,30,.35)}
+.hero p{color:var(--branco);font-size:1.2rem;max-width:44ch;text-shadow:0 1px 12px rgba(15,40,30,.4)}
+.hero .acoes{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.4rem}
+.sol-anim{animation:nascer 2.2s ease-out both}
+@keyframes nascer{from{transform:translateY(60px);opacity:.3}to{transform:none;opacity:1}}
+
+/* ---------- Reserva ---------- */
+.reserva{position:relative;z-index:5;margin-top:-6rem}
+.reserva-card{background:var(--branco);border-radius:var(--raio);padding:1.8rem;box-shadow:0 20px 50px rgba(23,37,42,.16);display:grid;grid-template-columns:1.3fr 1fr;gap:2rem}
+.reserva h2{font-size:1.7rem;margin-bottom:.2em}
+.reserva .sub{color:var(--suave);font-size:.98rem;margin-bottom:1.2rem}
+.campos{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.campo{display:flex;flex-direction:column;gap:.3rem}
+.campo.inteiro{grid-column:1/-1}
+.campo label{font-weight:700;font-size:.9rem;color:var(--mata)}
+.campo input,.campo select{font:inherit;font-size:1rem;padding:.75rem .85rem;border:1.5px solid #CBD8D3;border-radius:12px;background:#FBFDFC;color:var(--tinta);width:100%}
+.campo input:focus,.campo select:focus{border-color:var(--mar);outline:none}
+.previa{background:#E7F6EE;border-radius:14px;padding:1.2rem;display:flex;flex-direction:column}
+.previa-titulo{font-weight:700;color:var(--mata);font-size:.9rem;margin-bottom:.6rem}
+.bolha{background:#DCF8C6;border-radius:12px 12px 12px 4px;padding:.9rem 1rem;font-size:.95rem;white-space:pre-line;flex:1;color:#1d2b25;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.previa .btn{margin-top:1rem;width:100%}
+.aviso{font-size:.85rem;color:var(--suave);margin:.6rem 0 0}
+.erro{color:#B42318;font-size:.9rem;min-height:1.2em;margin:.4rem 0 0}
+@media (max-width:860px){.reserva-card{grid-template-columns:1fr}}
+@media (max-width:480px){.campos{grid-template-columns:1fr}.reserva-card{padding:1.3rem}}
+
+/* ---------- Fotos ilustradas (troque por fotos reais no CONFIG) ---------- */
+.foto{position:relative;border-radius:var(--raio);overflow:hidden;background-size:cover;background-position:center;min-height:220px}
+.foto[data-cena="piscina"]{background-image:linear-gradient(180deg,#9ED8E6 0 38%,#5FB6C6 38% 100%)}
+.foto[data-cena="quarto"]{background-image:linear-gradient(180deg,#F3E3CC 0 62%,#C9A27A 62% 100%)}
+.foto[data-cena="cafe"]{background-image:linear-gradient(160deg,#F7D59B,#E9A86A)}
+.foto[data-cena="praia"]{background-image:linear-gradient(180deg,#9FD3E8 0 45%,#3E8FA3 45% 70%,#EBD8AE 70% 100%)}
+.foto[data-cena="jardim"]{background-image:linear-gradient(180deg,#BFE2C9,#3F7A55)}
+.foto[data-cena="varanda"]{background-image:linear-gradient(180deg,#FFD7A1 0 50%,#2E7A7B 50% 100%)}
+.foto .rotulo{position:absolute;left:.8rem;bottom:.8rem;background:rgba(255,255,255,.9);color:var(--mata);font-weight:700;font-size:.85rem;padding:.3rem .7rem;border-radius:999px}
+.foto .icone{position:absolute;inset:0;display:grid;place-items:center;font-size:3.2rem;opacity:.85}
+.foto.real .icone{display:none}
+
+/* ---------- Sobre ---------- */
+.sobre .grade{display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;align-items:center}
+.mosaico{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:200px 200px;gap:.9rem}
+.mosaico .foto:first-child{grid-row:1/3;min-height:auto}
+.diferenciais{list-style:none;padding:0;margin:1.6rem 0 0;display:grid;grid-template-columns:1fr 1fr;gap:.7rem 1.4rem}
+.diferenciais li{display:flex;gap:.6rem;align-items:baseline;font-weight:600}
+.diferenciais li span{font-size:1.2rem}
+@media (max-width:860px){.sobre .grade{grid-template-columns:1fr}.mosaico{grid-template-rows:170px 170px}}
+@media (max-width:480px){.diferenciais{grid-template-columns:1fr}}
+
+/* ---------- Quartos ---------- */
+.quartos{background:var(--branco)}
+.quarto{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:2rem;align-items:center;padding:2rem 0;border-top:1px solid #DCE6E2}
+.quarto:first-of-type{border-top:0}
+.quarto:nth-of-type(even) .foto{order:2}
+.quarto .foto{min-height:260px}
+.quarto ul{list-style:none;padding:0;margin:0 0 1.2rem;display:flex;flex-wrap:wrap;gap:.5rem}
+.quarto li{background:var(--espuma);padding:.35rem .8rem;border-radius:999px;font-size:.92rem;font-weight:600;color:var(--mata)}
+.preco{font-size:1rem;color:var(--suave);margin-bottom:1rem}
+.preco strong{font-family:"Zilla Slab",serif;font-size:1.9rem;color:var(--mata)}
+.btn-escolher{background:var(--mata);color:var(--branco)}
+.btn-escolher:hover{background:#2a4d3c}
+@media (max-width:760px){.quarto{grid-template-columns:1fr;gap:1.2rem}.quarto:nth-of-type(even) .foto{order:0}}
+
+/* ---------- Avaliações ---------- */
+.avaliacoes .lista{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+.avaliacao{margin:0;border-left:4px solid var(--sol);padding:.3rem 0 .3rem 1.2rem}
+.avaliacao p{font-size:1.05rem;font-style:italic}
+.avaliacao cite{font-style:normal;font-weight:700;color:var(--mata)}
+.estrelas{color:var(--sol);letter-spacing:2px;margin-bottom:.4rem}
+.nota-google{display:inline-flex;align-items:center;gap:.6rem;background:var(--branco);padding:.6rem 1rem;border-radius:999px;font-weight:700}
+@media (max-width:860px){.avaliacoes .lista{grid-template-columns:1fr}}
+
+/* ---------- Localização ---------- */
+.local{background:var(--mata);color:#E6F0EC}
+.local h2{color:var(--branco)}
+.local .grade{display:grid;grid-template-columns:1fr 1.3fr;gap:2.5rem;align-items:start}
+.distancias{list-style:none;padding:0;margin:1.2rem 0 0}
+.distancias li{display:flex;justify-content:space-between;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.15)}
+.distancias b{color:var(--sol)}
+.mapa{border-radius:var(--raio);overflow:hidden;min-height:340px;background:#2a4d3c}
+.mapa iframe{width:100%;height:100%;min-height:340px;border:0;display:block}
+@media (max-width:860px){.local .grade{grid-template-columns:1fr}}
+
+/* ---------- Dúvidas ---------- */
+.duvidas details{background:var(--branco);border-radius:14px;padding:1.1rem 1.3rem;margin-bottom:.8rem}
+.duvidas summary{font-weight:700;cursor:pointer;color:var(--mata);list-style:none;display:flex;justify-content:space-between;gap:1rem}
+.duvidas summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--mar)}
+.duvidas details[open] summary::after{content:"−"}
+.duvidas details p{margin:.8rem 0 0}
+.duvidas .wrap{max-width:780px}
+
+/* ---------- Rodapé ---------- */
+footer{background:#142A20;color:#B9CCC4;padding:3rem 0 2rem;font-size:.95rem}
+footer .grade{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+footer .marca{color:var(--branco)}
+footer a{color:#DCEAE4}
+.credito{margin-top:2rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.12);font-size:.85rem}
+
+/* ---------- WhatsApp flutuante ---------- */
+.zap{position:fixed;right:1.1rem;bottom:calc(1.1rem + env(safe-area-inset-bottom,0px));z-index:60;width:60px;height:60px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.zap svg{width:32px;height:32px;fill:#fff}
+</style>
+</head>
+<body>
+
+<!-- ===================== TOPO ===================== -->
+<header class="topo" id="topo">
+  <div class="wrap">
+    <a href="#inicio" class="marca" data-cfg="nome">Pousada Brisa da Mata</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <nav id="menu">
+      <a href="#sobre">A pousada</a>
+      <a href="#quartos">Quartos</a>
+      <a href="#localizacao">Como chegar</a>
+      <a href="#reservar" class="btn btn-sol" style="padding:.6rem 1.2rem">Reservar</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="inicio" style="padding-top:0">
+  <svg class="paisagem" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="ceu" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#F59E6B"/><stop offset=".55" stop-color="#F7C873"/><stop offset="1" stop-color="#FBE3A6"/>
+      </linearGradient>
+      <linearGradient id="agua" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3C9A9B"/><stop offset="1" stop-color="#1F5E62"/>
+      </linearGradient>
+    </defs>
+    <rect width="1440" height="900" fill="url(#ceu)"/>
+    <circle class="sol-anim" cx="980" cy="430" r="110" fill="#FFE7A8" opacity=".95"/>
+    <path d="M0 470 C180 360 300 330 460 400 C600 300 760 280 900 380 C1040 330 1200 300 1440 420 L1440 600 L0 600Z" fill="#4E8A68" opacity=".55"/>
+    <path d="M-40 560 C120 420 260 380 420 470 C520 400 640 380 740 480 L740 640 L-40 640Z" fill="#2F6B4C"/>
+    <path d="M820 520 C960 430 1120 420 1240 470 C1320 430 1400 430 1480 470 L1480 640 L820 640Z" fill="#2F6B4C"/>
+    <rect y="600" width="1440" height="300" fill="url(#agua)"/>
+    <path d="M0 640 Q120 630 240 640 T480 640 T720 640 T960 640 T1200 640 T1440 640" stroke="#7CC4C2" stroke-width="3" fill="none" opacity=".6"/>
+    <path d="M0 700 Q120 690 240 700 T480 700 T720 700 T960 700 T1200 700 T1440 700" stroke="#7CC4C2" stroke-width="3" fill="none" opacity=".35"/>
+    <path d="M0 800 C300 760 700 770 1000 800 C1200 820 1340 810 1440 790 L1440 900 L0 900Z" fill="#E9D3A3"/>
+    <g fill="#1F3B2D">
+      <path d="M150 820 C158 740 164 690 178 640 L186 642 C174 700 170 760 166 822Z"/>
+      <path d="M180 642 C140 620 100 630 70 660 C110 640 150 640 180 650Z"/>
+      <path d="M182 640 C200 600 240 590 280 600 C240 610 210 625 186 648Z"/>
+      <path d="M180 645 C150 600 120 590 90 595 C125 605 155 625 178 652Z"/>
+      <path d="M184 645 C220 640 255 660 275 690 C245 668 215 656 184 652Z"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <h1>Pé na areia, sombra da mata</h1>
+    <p>Uma pousada pequena e tranquila no <span data-cfg="cidade">Litoral Norte de SP</span>, a dois minutos a pé da praia. Café da manhã caseiro todo dia até as 11h.</p>
+    <div class="acoes">
+      <a href="#reservar" class="btn btn-sol">Ver datas e reservar</a>
+      <a href="#quartos" class="btn btn-linha">Conhecer os quartos</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESERVA ===================== -->
+<div class="reserva" id="reservar">
+  <div class="wrap">
+    <div class="reserva-card">
+      <div>
+        <h2>Reserve direto com a gente</h2>
+        <p class="sub">Sem taxa de plataforma: você fala com a recepção e garante o melhor preço.</p>
+        <form id="formReserva" class="campos" novalidate>
+          <div class="campo">
+            <label for="entrada">Check-in</label>
+            <input type="date" id="entrada" required>
+          </div>
+          <div class="campo">
+            <label for="saida">Check-out</label>
+            <input type="date" id="saida" required>
+          </div>
+          <div class="campo">
+            <label for="hospedes">Hóspedes</label>
+            <select id="hospedes">
+              <option>1 adulto</option><option selected>2 adultos</option><option>2 adultos e 1 criança</option><option>2 adultos e 2 crianças</option><option>3 adultos</option><option>4 adultos</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="quarto">Quarto</label>
+            <select id="quarto">
+              <option>Suíte Jardim</option><option>Suíte Vista Mar</option><option>Chalé Família</option><option>Ainda não sei</option>
+            </select>
+          </div>
+          <div class="campo inteiro">
+            <label for="nome">Seu nome</label>
+            <input type="text" id="nome" placeholder="Como podemos te chamar?" autocomplete="name">
+          </div>
+        </form>
+        <p class="erro" id="erro" role="alert"></p>
+      </div>
+      <div class="previa">
+        <div class="previa-titulo">Sua mensagem pra recepção</div>
+        <div class="bolha" id="bolha"></div>
+        <button class="btn btn-sol" id="enviar" type="button">Enviar pelo WhatsApp</button>
+        <p class="aviso">A recepção confirma disponibilidade e valores por lá.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SOBRE ===================== -->
+<section class="sobre" id="sobre">
+  <div class="wrap grade">
+    <div class="mosaico">
+      <div class="foto" data-cena="piscina" data-foto="piscina"><span class="icone">🏊</span><span class="rotulo">Piscina</span></div>
+      <div class="foto" data-cena="cafe" data-foto="cafe"><span class="icone">☕</span><span class="rotulo">Café da manhã</span></div>
+      <div class="foto" data-cena="jardim" data-foto="jardim"><span class="icone">🌿</span><span class="rotulo">Jardim</span></div>
+    </div>
+    <div>
+      <h2>Um lugar pra desacelerar</h2>
+      <p>São só 8 quartos, cercados de jardim e com a mata logo atrás. De manhã você ouve passarinho, de tarde vai pra praia com cadeira e guarda-sol que a gente empresta.</p>
+      <p>O café é feito aqui: pão de queijo, bolo do dia, tapioca na hora e frutas da estação.</p>
+      <ul class="diferenciais">
+        <li><span>🏖️</span>2 min a pé da praia</li>
+        <li><span>🍳</span>Café da manhã incluso</li>
+        <li><span>🏊</span>Piscina aquecida</li>
+        <li><span>🐾</span>Aceita pets</li>
+        <li><span>📶</span>Wi-Fi em todos os quartos</li>
+        <li><span>🚗</span>Estacionamento grátis</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUARTOS ===================== -->
+<section class="quartos" id="quartos">
+  <div class="wrap">
+    <h2>Quartos</h2>
+    <p style="color:var(--suave)">Todos com ar-condicionado, frigobar, TV e enxoval de praia.</p>
+
+    <article class="quarto">
+      <div class="foto" data-cena="quarto" data-foto="suiteJardim"><span class="icone">🛏️</span><span class="rotulo">Suíte Jardim</span></div>
+      <div>
+        <h3>Suíte Jardim</h3>
+        <p>Térreo, com varandinha de frente pro jardim. Boa pra casal que quer silêncio.</p>
+        <ul><li>Até 2 pessoas</li><li>Cama queen</li><li>Varanda</li></ul>
+        <div class="preco">a partir de <strong data-cfg="precoJardim">R$ 320</strong> a diária</div>
+        <button class="btn btn-escolher" data-quarto="Suíte Jardim">Reservar esta suíte</button>
+      </div>
+    </article>
+
+    <article class="quarto">
+      <div class="foto" data-cena="varanda" data-foto="suiteMar"><span class="icone">🌅</span><span class="rotulo">Suíte Vista Mar</span></div>
+      <div>
+        <h3>Suíte Vista Mar</h3>
+        <p>No andar de cima, com varanda e rede olhando pro mar. A mais pedida pra lua de mel.</p>
+        <ul><li>Até 2 pessoas</li><li>Cama king</li><li>Rede na varanda</li></ul>
+        <div class="preco">a partir de <strong data-cfg="precoMar">R$ 420</strong> a diária</div>
+        <button class="btn btn-escolher" data-quarto="Suíte Vista Mar">Reservar esta suíte</button>
+      </div>
+    </article>
+
+    <article class="quarto">
+      <div class="foto" data-cena="jardim" data-foto="chale"><span class="icone">🏡</span><span class="rotulo">Chalé Família</span></div>
+      <div>
+        <h3>Chalé Família</h3>
+        <p>Chalé separado com quarto de casal, beliche e cozinha compacta. Cabe a família toda.</p>
+        <ul><li>Até 5 pessoas</li><li>Cozinha</li><li>Churrasqueira</li></ul>
+        <div class="preco">a partir de <strong data-cfg="precoChale">R$ 560</strong> a diária</div>
+        <button class="btn btn-escolher" data-quarto="Chalé Família">Reservar este chalé</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== AVALIAÇÕES ===================== -->
+<section class="avaliacoes">
+  <div class="wrap">
+    <h2>Quem ficou, volta</h2>
+    <span class="nota-google">⭐ <span data-cfg="nota">4,8</span> no Google · <span data-cfg="avaliacoes">300+</span> avaliações</span>
+    <div class="lista">
+      <blockquote class="avaliacao">
+        <div class="estrelas">★★★★★</div>
+        <p>Café da manhã maravilhoso e equipe super atenciosa. Já estamos planejando voltar no verão.</p>
+        <cite>Mariana, São Paulo</cite>
+      </blockquote>
+      <blockquote class="avaliacao">
+        <div class="estrelas">★★★★★</div>
+        <p>Quarto limpinho, cama ótima e a praia é logo ali. Levamos nosso cachorro e foi super bem recebido.</p>
+        <cite>Rafael, Campinas</cite>
+      </blockquote>
+      <blockquote class="avaliacao">
+        <div class="estrelas">★★★★★</div>
+        <p>Lugar calmo de verdade. Reservei direto pelo WhatsApp, foi rápido e saiu mais barato.</p>
+        <cite>Juliana, São José dos Campos</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOCALIZAÇÃO ===================== -->
+<section class="local" id="localizacao">
+  <div class="wrap grade">
+    <div>
+      <h2>Como chegar</h2>
+      <p><span data-cfg="endereco">Rua das Palmeiras, 100</span> · <span data-cfg="cidade">Litoral Norte de SP</span></p>
+      <ul class="distancias">
+        <li>Praia <b>2 min a pé</b></li>
+        <li>Restaurantes e mercado <b>5 min a pé</b></li>
+        <li>São Paulo <b>cerca de 3h de carro</b></li>
+      </ul>
+    </div>
+    <div class="mapa"><iframe id="mapa" title="Mapa da localização da pousada" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+  </div>
+</section>
+
+<!-- ===================== DÚVIDAS ===================== -->
+<section class="duvidas">
+  <div class="wrap">
+    <h2>Dúvidas frequentes</h2>
+    <details><summary>Qual o horário de check-in e check-out?</summary><p>Check-in a partir das 14h e check-out até as 12h. Se precisar de horário diferente, é só pedir pelo WhatsApp.</p></details>
+    <details><summary>Posso levar meu pet?</summary><p>Pode! Aceitamos cães e gatos de pequeno e médio porte. Avise na reserva pra separarmos um quarto adequado.</p></details>
+    <details><summary>Como funciona o pagamento?</summary><p>Pedimos um sinal via Pix pra confirmar a reserva, e o restante pode ser pago no check-in.</p></details>
+    <details><summary>Tem estacionamento?</summary><p>Sim, estacionamento gratuito dentro da pousada.</p></details>
+  </div>
+</section>
+
+<!-- ===================== RODAPÉ ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="grade">
+      <div>
+        <div class="marca" data-cfg="nome">Pousada Brisa da Mata</div>
+        <p style="margin-top:.5rem"><span data-cfg="endereco">Rua das Palmeiras, 100</span><br><span data-cfg="cidade">Litoral Norte de SP</span></p>
+      </div>
+      <div>
+        <p>WhatsApp: <a id="zapTexto" href="#">(12) 99999-9999</a><br>
+        Instagram: <a id="insta" href="#" target="_blank" rel="noopener">@pousada</a></p>
+      </div>
+    </div>
+    <p class="credito">Site feito por <a href="#" data-cfg-href="devLink" target="_blank" rel="noopener" data-cfg="devNome">Felipe Leal</a></p>
+  </div>
+</footer>
+
+<a class="zap" id="zapFlutuante" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.2.6 4.4 1.7 6.3L3 29l7.3-1.9c1.8 1 3.8 1.5 5.8 1.5 7 0 12.7-5.6 12.7-12.6S23 3 16 3zm0 23.1c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-4.3 1.1 1.2-4.2-.3-.4c-1-1.6-1.5-3.4-1.5-5.3 0-5.8 4.7-10.5 10.5-10.5s10.5 4.7 10.5 10.5S21.8 26.1 16 26.1zm5.8-7.8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.6-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+</a>
+
+<script>
+/* =========================================================
+   CONFIG — troque só isso aqui pra cada pousada
+   ========================================================= */
+const CONFIG = {
+  nome: "Pousada Brisa da Mata",
+  cidade: "Maresias, São Sebastião - SP",
+  endereco: "Rua das Palmeiras, 100",
+  whatsapp: "5512999999999",          // DDI + DDD + número, só dígitos
+  whatsappTexto: "(12) 99999-9999",
+  instagram: "pousadabrisadamata",     // sem @
+  nota: "4,8",
+  avaliacoes: "300+",
+  precoJardim: "R$ 320",
+  precoMar: "R$ 420",
+  precoChale: "R$ 560",
+  devNome: "Felipe Leal",
+  devLink: "https://github.com/pipoleal",
+  // Fotos reais: coloque os arquivos na pasta img/ e preencha. Vazio = usa a ilustração.
+  fotos: {
+    piscina: "",      // ex: "img/piscina.jpg"
+    cafe: "",
+    jardim: "",
+    suiteJardim: "",
+    suiteMar: "",
+    chale: ""
+  }
+};
+
+/* ---------- Aplica o CONFIG ---------- */
+document.title = CONFIG.nome + " — " + CONFIG.cidade;
+document.querySelectorAll("[data-cfg]").forEach(el => {
+  const v = CONFIG[el.dataset.cfg];
+  if (v) el.textContent = v;
+});
+document.querySelectorAll("[data-cfg-href]").forEach(el => {
+  const v = CONFIG[el.dataset.cfgHref];
+  if (v) el.href = v;
+});
+document.querySelectorAll("[data-foto]").forEach(el => {
+  const src = CONFIG.fotos[el.dataset.foto];
+  if (src) { el.style.backgroundImage = `url("${src}")`; el.classList.add("real"); }
+});
+const linkZap = msg => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+document.getElementById("zapFlutuante").href = linkZap(`Olá! Vim pelo site da ${CONFIG.nome} e gostaria de mais informações.`);
+const zapTexto = document.getElementById("zapTexto");
+zapTexto.textContent = CONFIG.whatsappTexto;
+zapTexto.href = document.getElementById("zapFlutuante").href;
+const insta = document.getElementById("insta");
+insta.textContent = "@" + CONFIG.instagram;
+insta.href = "https://instagram.com/" + CONFIG.instagram;
+document.getElementById("mapa").src = "https://www.google.com/maps?q=" + encodeURIComponent(CONFIG.endereco + ", " + CONFIG.cidade) + "&output=embed";
+
+/* ---------- Topo muda de cor ao rolar ---------- */
+const topo = document.getElementById("topo");
+const aoRolar = () => topo.classList.toggle("solido", window.scrollY > 40);
+window.addEventListener("scroll", aoRolar, { passive: true }); aoRolar();
+
+/* ---------- Menu mobile ---------- */
+const menu = document.getElementById("menu"), menuBtn = document.getElementById("menuBtn");
+menuBtn.addEventListener("click", () => {
+  const aberto = menu.classList.toggle("aberto");
+  menuBtn.setAttribute("aria-expanded", aberto);
+  menuBtn.textContent = aberto ? "✕" : "☰";
+});
+menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+  menu.classList.remove("aberto"); menuBtn.textContent = "☰"; menuBtn.setAttribute("aria-expanded", false);
+}));
+
+/* ---------- Reserva pelo WhatsApp ---------- */
+const $ = id => document.getElementById(id);
+const entrada = $("entrada"), saida = $("saida"), hospedes = $("hospedes"), quarto = $("quarto"), nome = $("nome"), bolha = $("bolha"), erro = $("erro");
+const hoje = new Date(); hoje.setMinutes(hoje.getMinutes() - hoje.getTimezoneOffset());
+const iso = d => d.toISOString().slice(0, 10);
+entrada.min = iso(hoje);
+const fmt = v => v ? v.split("-").reverse().join("/") : "__/__";
+const noites = () => {
+  if (!entrada.value || !saida.value) return 0;
+  return Math.round((new Date(saida.value) - new Date(entrada.value)) / 86400000);
+};
+function montarMensagem() {
+  const n = noites();
+  const saud = nome.value.trim() ? `Olá! Meu nome é ${nome.value.trim()}.` : "Olá!";
+  return `${saud} Vim pelo site e gostaria de reservar:\n\n` +
+    `🏠 ${quarto.value}\n📅 ${fmt(entrada.value)} a ${fmt(saida.value)}${n > 0 ? ` (${n} ${n === 1 ? "noite" : "noites"})` : ""}\n👥 ${hospedes.value}\n\nTem disponibilidade?`;
+}
+function atualizar() {
+  if (entrada.value) {
+    const min = new Date(entrada.value); min.setDate(min.getDate() + 1);
+    saida.min = iso(min);
+    if (saida.value && saida.value <= entrada.value) saida.value = "";
+  }
+  bolha.textContent = montarMensagem();
+  erro.textContent = "";
+}
+[entrada, saida, hospedes, quarto, nome].forEach(el => el.addEventListener("input", atualizar));
+atualizar();
+
+$("enviar").addEventListener("click", () => {
+  if (!entrada.value || !saida.value) { erro.textContent = "Escolha as datas de check-in e check-out pra enviar."; (entrada.value ? saida : entrada).focus(); return; }
+  if (noites() < 1) { erro.textContent = "O check-out precisa ser depois do check-in."; saida.focus(); return; }
+  window.open(linkZap(montarMensagem()), "_blank", "noopener");
+});
+
+document.querySelectorAll("[data-quarto]").forEach(btn => btn.addEventListener("click", () => {
+  quarto.value = btn.dataset.quarto; atualizar();
+  document.getElementById("reservar").scrollIntoView({ behavior: "smooth" });
+  setTimeout(() => entrada.focus({ preventScroll: true }), 500);
+}));
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Vercel / env
+.vercel
+.env*
+
+# Demos geradas (recrie com: node gerar-demo.js dados/<arquivo>.json)
+demos/
